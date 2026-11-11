@@ -1,0 +1,85 @@
+---
+title: "Mapping"
+author: Edward Blaha
+format:
+  pdf:
+    geometry: margin=0.75in
+    fig-width: 9
+    fig-height: 6
+knitr:
+  opts_chunk:
+    out.width: "100%"
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+#| include: false
+source("/Users/edwardblaha/DataWrangling/Week12-Maps/Mapping/Mapping_DWV/Mapping.R")
+```
+
+## 1.
+
+```{r}
+State2020Plot
+```
+
+```{r}
+County2020Plot
+```
+
+```{r}
+PopulationDensityPlot
+```
+
+```{r}
+PercentageBlackPlot
+```
+
+## 2.
+
+```{r}
+map_senate
+```
+
+```{r}
+map_governor
+```
+
+## 3.
+
+```{r}
+map_senate_swing
+```
+
+```{r}
+map_gov_swing
+```
+
+## 4.
+
+```{r}
+map_syracuse
+```
+
+## 5.
+
+The first map shows the location of each ACC school, obtained from the US Department of Education. The second map zooms in to show the election results of each ACC school's county, as well as surrounding counties. The third supplementary plot compares democratic vote share within each school's county to democratic vote share in the state as a whole in 2020.
+
+```{r}
+map_acc
+```
+
+```{r, fig.width = 14, fig.height = 8}
+map_acc_zoom
+```
+
+```{r}
+plot_acc_vote
+```
+
+Source:
+
+U.S. Department of Education, National Center for Education Statistics, Integrated Postsecondary Education Data System (IPEDS), Institutional Characteristics: Directory Information, 2023 (HD2023). https://nces.ed.gov/ipeds/datacenter/data/HD2023.zip
