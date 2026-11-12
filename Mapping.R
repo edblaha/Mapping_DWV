@@ -274,25 +274,32 @@ library(ggrepel)
 #Integrated Postsecondary Education Data System (IPEDS), Institutional Characteristics: 
 #Directory Information, 2023 (HD2023). https://nces.ed.gov/ipeds/datacenter/data/HD2023.zip
 
-acc <- data.frame(
+ipeds <- read_csv("/Users/edwardblaha/DataWrangling/Week12-Maps/Mapping/Mapping_DWV/HD2023.csv",
+                  locale = locale(encoding = "latin1"))
+
+acc_schools <- data.frame(
+  INSTNM = c("Boston College", "University of California-Berkeley", "Clemson University",
+             "Duke University", "Florida State University",
+             "Georgia Institute of Technology-Main Campus", "University of Louisville",
+             "University of Miami", "University of North Carolina at Chapel Hill",
+             "North Carolina State University at Raleigh", "University of Notre Dame",
+             "University of Pittsburgh-Pittsburgh Campus", "Southern Methodist University",
+             "Stanford University", "Syracuse University", "University of Virginia-Main Campus",
+             "Virginia Polytechnic Institute and State University", "Wake Forest University"),
   school = c("Boston College", "California", "Clemson", "Duke", "Florida State",
              "Georgia Tech", "Louisville", "Miami", "North Carolina", "NC State",
              "Notre Dame", "Pittsburgh", "SMU", "Stanford", "Syracuse",
              "Virginia", "Virginia Tech", "Wake Forest"),
-  longitude = c(-71.169242, -122.260463, -82.835114, -78.937624, -84.295064,
-                -84.394832, -85.760412, -80.278662, -79.050969, -78.674517,
-                -86.238959, -79.953254, -96.783365, -122.167359, -76.133989,
-                -78.503428, -80.423675, -80.277446),
-  latitude = c(42.336213, 37.871918, 34.679381, 36.001135, 30.443147,
-               33.772420, 38.216862, 25.721260, 35.911769, 35.785111,
-               41.703058, 40.444388, 32.843612, 37.429434, 43.036644,
-               38.035665, 37.229012, 36.133609),
   color = c("#98002E", "#003262", "#F56600", "#00539B", "#782F40",
             "#B3A369", "#AD0000", "#F47321", "#7BAFD4", "#CC0000",
             "#0C2340", "#003594", "#CC0035", "#8C1515", "#F76900",
             "#E57200", "#861F41", "#9E7E38")
-) |>
-  st_as_sf(coords = c("longitude", "latitude"), crs = 4326) |>
+)
+
+acc <- acc_schools |>
+  left_join(ipeds, by = "INSTNM") |>
+  select(school, color, LONGITUD, LATITUDE) |>
+  st_as_sf(coords = c("LONGITUD", "LATITUDE"), crs = 4326) |>
   shift_geometry()
 
 map_acc <- ggplot() +
